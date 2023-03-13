@@ -9,6 +9,7 @@ import SellerOrders from './pages/SellerOrders';
 import CustomerOrders from './pages/CustomerOrders';
 import CustomerOrderDetails from './pages/CustomerOrderDetails';
 import SellerOrdersDetails from './pages/SellerOrdersDetails';
+import AdmManagement from './pages/AdmManagement';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/customer/checkout" component={ Checkout } />
           <Route exact path="/seller/orders" component={ SellerOrders } />
           <Route exact path="/customer/orders" component={ CustomerOrders } />
+          <Route exact path="/admin/manage" component={ AdmManagement } />
           <Route exact path="/customer/orders/:id" component={ CustomerOrderDetails } />
           <Route exact path="/seller/orders/:id" component={ SellerOrdersDetails } />
           <Route exact path="/" render={ () => <Redirect to="/login" /> } />

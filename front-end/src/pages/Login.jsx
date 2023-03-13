@@ -60,6 +60,7 @@ export default function Login() {
     console.log(decoded);
     if (decoded.data.role === 'seller') history.push('/seller/orders');
     if (decoded.data.role === 'customer') history.push('/customer/products');
+    if (decoded.data.role === 'administrator') history.push('/admin/manage');
   };
 
   useEffect(() => {

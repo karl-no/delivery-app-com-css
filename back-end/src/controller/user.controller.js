@@ -26,6 +26,13 @@ const createUser = async (req, res) => {
   return res.status(201).json(newUser);
 };
 
+const admCreateUser = async (req, res) => {
+  const user = req.body;
+  const newUser = await userService.admCreateUser(user);
+  if (!newUser) return res.status(409).json({ message: 'User already registered' });
+  return res.status(201).json(newUser);
+};
+
 const getSellers = async (_req, res) => {
   try {
     const seller = await userService.getSellers();
@@ -42,9 +49,32 @@ const getUserById = async (req, res) => {
   return res.status(200).json(user);
 };
 
+const getAll = async (_req, res) => {
+  try {
+    const user = await userService.getAll();
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedUser = await userService.deleteUser(id);
+    console.log(deletedUser);
+    return res.status(204).end();
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
 module.exports = {
   login,
   createUser,
   getSellers,
   getUserById,
+  getAll,
+  admCreateUser,
+  deleteUser,
 };

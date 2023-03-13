@@ -30,4 +30,21 @@ const validateToken = async (req, res, next) => {
   }
 };
 
-module.exports = { validateUser, validateToken };
+const validateTokenAdm = async (req, res, next) => {
+  const { authorization: token } = req.headers;
+  if (!token) {
+    return res.status(401).json({ message: 'not have token' });
+  }
+  try {
+    const decoded = jwt.verify(token, jwtKey);
+    console.log(decoded);
+    if (decoded.data.role !== 'administrator') {
+      return res.status(401).json({ message: 'you are not authorized' });
+    }
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Token must be a valid token' });
+  }
+};
+
+module.exports = { validateUser, validateToken, validateTokenAdm };

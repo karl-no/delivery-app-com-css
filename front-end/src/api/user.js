@@ -3,6 +3,8 @@ import axios from 'axios';
 const BAD_REQUEST = 400;
 const USER_ALREADY_REGISTERED = 409;
 const CONTEXT_TYPE = 'application/json';
+const SOME_FIELD_ARE_INVALIDS = 'Some fields are invalid';
+const INTERNAL_SERVER = 'internal server error';
 
 export const registerNewUser = async (user) => {
   try {
@@ -22,11 +24,11 @@ export const registerNewUser = async (user) => {
   } catch (error) {
     switch (error.response.status) {
     case BAD_REQUEST:
-      return 'Some fields are invalid';
+      return SOME_FIELD_ARE_INVALIDS;
     case USER_ALREADY_REGISTERED:
       return 'User already registered';
     default:
-      return 'internal server error';
+      return INTERNAL_SERVER;
     }
   }
 };
@@ -49,9 +51,9 @@ export const login = async (user) => {
   } catch (error) {
     switch (error.response.status) {
     case BAD_REQUEST:
-      return 'Some fields are invalid';
+      return SOME_FIELD_ARE_INVALIDS;
     default:
-      return 'internal server error';
+      return INTERNAL_SERVER;
     }
   }
 };
@@ -87,3 +89,52 @@ export const getUserById = async (id) => {
     return error;
   }
 };
+
+export const getAll = (token) => axios.get(
+  'http://localhost:3001/admin/',
+  {
+    headers: {
+      'content-type': CONTEXT_TYPE,
+      authorization: token,
+    },
+  },
+)
+  .then((data) => data.data)
+  .catch((error) => error);
+
+export const admRegisterNewUser = async (token, user) => axios
+  .post(
+    'http://localhost:3001/admin/create',
+    {
+      ...user,
+    },
+    {
+      headers: {
+        'content-type': CONTEXT_TYPE,
+        authorization: token,
+      },
+    },
+  )
+  .then((data) => data.status)
+  .catch((error) => {
+    switch (error.response.status) {
+    case BAD_REQUEST:
+      return SOME_FIELD_ARE_INVALIDS;
+    case USER_ALREADY_REGISTERED:
+      return 'User already registered';
+    default:
+      return 'internal server error';
+    }
+  });
+
+export const deletedUser = (id, token) => axios.delete(
+  `http://localhost:3001/admin/delete/${id}`,
+  {
+    headers: {
+      'content-type': CONTEXT_TYPE,
+      authorization: token,
+    },
+  },
+)
+  .then((data) => data)
+  .catch((error) => error);
