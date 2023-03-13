@@ -16,11 +16,6 @@ export const products = async () => {
       );
     return data.data;
   } catch (error) {
-    switch (error.response.status) {
-    case NOT_FOUND:
-      return 'Products Not Found';
-    default:
-      return 'internal server error';
-    }
+    return error;
   }
 };

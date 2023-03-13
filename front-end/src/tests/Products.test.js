@@ -47,6 +47,7 @@ describe('Test the Product', () => {
   });
   afterEach(() => {
     jest.clearAllMocks();
+    global.localStorage.clear();
   });
   describe('The Product Card', () => {
     it('should exists with all elements', async () => {

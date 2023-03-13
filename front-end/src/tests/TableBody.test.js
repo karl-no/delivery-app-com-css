@@ -41,6 +41,7 @@ describe('Tet the TableBody component', () => {
   });
   afterEach(() => {
     jest.clearAllMocks();
+    global.localStorage.clear();
   });
 
   it('should exists with all elements', async () => {

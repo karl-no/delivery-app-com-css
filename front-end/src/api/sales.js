@@ -19,11 +19,6 @@ export const createSale = async (payload, jwt) => {
       );
     return data;
   } catch (error) {
-    switch (error.response.status) {
-    case BAD_REQUEST:
-      return 'Some fields are invalid';
-    default:
-      return 'internal server error';
-    }
+    return error;
   }
 };

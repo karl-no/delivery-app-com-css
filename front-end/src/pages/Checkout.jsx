@@ -26,11 +26,8 @@ export default function Checkout() {
   const items = Object.values(cartItems);
 
   const getTotal = () => {
-    if (items) {
-      const total = items.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
-      return total.toFixed(2).replace('.', ',');
-    }
-    return 0.00;
+    const total = items.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
+    return total.toFixed(2).replace('.', ',');
   };
 
   const removeItem = (id) => {
@@ -96,9 +93,9 @@ export default function Checkout() {
             />
           ))}
         </tbody>
-        <div data-testid="customer_checkout__element-order-total-price">
-          { getTotal() }
-        </div>
+        <span data-testid="customer_checkout__element-order-total-price">
+          { getTotal() ? getTotal() : 0.00 }
+        </span>
       </table>
       <fieldset>
         <h2>Detalhes e Endereço para Entrega</h2>

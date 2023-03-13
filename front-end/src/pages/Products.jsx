@@ -9,10 +9,11 @@ export default function Products() {
   const history = useHistory();
   const { totalCart } = useContext(Context);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [productsData, setProduct] = useState('');
+  const [productsData, setProduct] = useState([]);
 
   const setStateProduct = async () => {
     const dataProducts = await products();
+    console.log(dataProducts, 'RESULT PRODUCTS!');
     return setProduct(dataProducts);
   };
 
@@ -33,7 +34,7 @@ export default function Products() {
     <section>
       <Header />
       <div className="p-8 flex flex-wrap justify-center m-auto gap-10 lg:pl-12 lg:pr-12">
-        {productsData && productsData.map((product, i) => (
+        {productsData.length && productsData.map((product, i) => (
           <ProductCard key={ `${product.id}-${i}` } product={ { ...product } } />
         ))}
       </div>

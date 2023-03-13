@@ -71,12 +71,7 @@ export const getCustomerOrders = async (user, token) => {
     );
     return response.data;
   } catch (error) {
-    switch (error.response.status) {
-    case NOT_FOUND:
-      return 'Orders Not Found';
-    default:
-      return 'internal server error';
-    }
+    return error;
   }
 };
 
