@@ -136,15 +136,15 @@ describe('Test the checkout page', () => {
       const finishOrder = screen.getByRole('button', { name: /finalizar/i });
       userEvent.type(address, STREET);
       userEvent.type(number, HOUSE_NUMBER);
-      userEvent.click(finishOrder);
-      jest.clearAllMocks();
       axios.post.mockResolvedValueOnce({
         status: 201,
-        data: { insertId: 0 },
+        data: { insertedId: 1 },
       });
+      userEvent.click(finishOrder);
+      jest.clearAllMocks();
       await waitFor(() => {
         const { location: { pathname } } = history;
-        expect(pathname).toBe(`${PATH_ORDER}${0}`);
+        expect(pathname).toBe(`${PATH_ORDER}${1}`);
       });
     });
   });
