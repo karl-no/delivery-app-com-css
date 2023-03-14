@@ -10,7 +10,7 @@ const getSellerOrders = async (req, res) => {
       const decoded = jwt.verify(authorization, jwtKey);
       if (decoded.data.role !== 'seller') return res.status(401).end();
       const orders = await ordersService.getSellerOrders(decoded.data.email);
-      console.log(orders);
+
       if (!orders) return res.status(404).json({ message: 'Orders Not Found' });
   
       return res.status(200).json(orders);
